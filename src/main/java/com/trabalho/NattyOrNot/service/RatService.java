@@ -57,5 +57,15 @@ public class RatService {
                 .orElseThrow(() -> new RuntimeException("Suplemento '" + supplement.getName() + "' não encontrado."));
     }
 
+    public List<Rat> findAll() {
+        return ratRepository.findAll();
+    }
+
+    public Rat findById(Integer id) {
+        return ratRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Rat não encontrado com id " + id));
+    }
+
+
 
 }

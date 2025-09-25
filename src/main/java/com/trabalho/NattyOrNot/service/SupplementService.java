@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Service
 public class SupplementService {
 
@@ -15,4 +17,14 @@ public class SupplementService {
     public Supplement create(@RequestBody Supplement supplement){
         return supplementRepository.save(supplement);
     }
+
+    public List<Supplement> findAll() {
+        return supplementRepository.findAll();
+    }
+
+    public Supplement findById(Integer id) {
+        return supplementRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Supplement não encontrado com id " + id));
+    }
+
 }
