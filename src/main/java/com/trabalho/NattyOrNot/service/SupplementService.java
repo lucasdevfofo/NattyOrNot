@@ -26,5 +26,10 @@ public class SupplementService {
         return supplementRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Supplement não encontrado com id " + id));
     }
-
+    public void deleteById(Integer id){
+        supplementRepository.deleteById(id);
+    }
+    public void deleteAll(){
+        supplementRepository.deleteAll();
+    }
 }

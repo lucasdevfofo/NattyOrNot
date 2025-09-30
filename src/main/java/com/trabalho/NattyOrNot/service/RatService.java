@@ -65,7 +65,11 @@ public class RatService {
         return ratRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Rat não encontrado com id " + id));
     }
-
-
+    public void deleteById(Integer id){
+        ratRepository.deleteById(id);
+    }
+    public void deleteAll(){
+        ratRepository.deleteAll();
+    }
 
 }

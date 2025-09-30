@@ -27,4 +27,10 @@ public class BombService {
         return bombRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Bomb não encontrada com id " + id));
     }
+    public void deleteById(Integer id){
+        bombRepository.deleteById(id);
+    }
+    public void deleteAll(){
+        bombRepository.deleteAll();
+    }
 }
