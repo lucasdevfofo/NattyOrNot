@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -23,5 +24,8 @@ public class Supplement {
     private String type;
     private BigDecimal price;
     private String description;
+    private LocalDate manufacture;
+    private String weight;
+    private String scoopWeight;
 
 }

@@ -32,4 +32,6 @@ public class Rat {
     @ManyToOne
     @JoinColumn(name = "bomb_id")
     private Bomb bomb;
+
+    private String apLocation;
 }
