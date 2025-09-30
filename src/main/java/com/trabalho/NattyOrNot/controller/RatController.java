@@ -29,4 +29,9 @@ public class RatController {
         return ratService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public Rat update(@PathVariable Integer id, @RequestBody Rat ratDetails) {
+        return ratService.update(id, ratDetails);
+    }
+
 }
