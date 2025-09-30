@@ -29,4 +29,15 @@ public class BombController {
     public Bomb getById(@PathVariable Integer id) {
         return bombService.findById(id);
     }
+
+    @PutMapping("/{id}")
+    public Bomb update(@PathVariable Integer id, @RequestBody Bomb bombDetails) {
+        return bombService.update(id, bombDetails);
+    }
+
+    @PatchMapping("/{id}")
+    public Bomb patch(@PathVariable Integer id, @RequestBody Bomb bombDetails) {
+        return bombService.patch(id, bombDetails);
+    }
+
 }
