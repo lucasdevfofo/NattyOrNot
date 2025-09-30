@@ -26,6 +26,29 @@ public class SupplementService {
         return supplementRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Supplement não encontrado com id " + id));
     }
+    public Supplement update(Integer id, Supplement supplementDetails) {
+        Supplement supplement = supplementRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Supplement não encontrado com id " + id));
+
+        if (supplementDetails.getName() == null || supplementDetails.getName().isBlank()) {
+            throw new RuntimeException("Nome do suplemento é obrigatório.");
+        }
+        supplement.setName(supplementDetails.getName());
+
+        return supplementRepository.save(supplement);
+    }
+
+    public Supplement patch(Integer id, Supplement supplementDetails) {
+        Supplement supplement = supplementRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Supplement não encontrado com id " + id));
+
+        if (supplementDetails.getName() != null && !supplementDetails.getName().isBlank()) {
+            supplement.setName(supplementDetails.getName());
+        }
+
+        return supplementRepository.save(supplement);
+    }
+
     public void deleteById(Integer id){
         supplementRepository.deleteById(id);
     }

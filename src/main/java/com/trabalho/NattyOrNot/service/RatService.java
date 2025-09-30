@@ -65,7 +65,69 @@ public class RatService {
         return ratRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Rat não encontrado com id " + id));
     }
-    public void deleteById(Integer id){
+
+    public Rat update(Integer id, Rat ratDetails) {
+        Rat rat = ratRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Rat não encontrado com id " + id));
+
+        if (ratDetails.getName() == null || ratDetails.getName().isBlank()) {
+            throw new RuntimeException("Nome do rat é obrigatório.");
+        }
+        rat.setName(ratDetails.getName());
+
+        List<Supplement> validatedSupplements = ratDetails.getSupplements().stream()
+                .map(this::resolveSupplement)
+                .collect(Collectors.toList());
+        rat.setSupplements(validatedSupplements);
+
+        if (ratDetails.isUseBomb()) {
+            if (ratDetails.getBomb() == null || ratDetails.getBomb().getName() == null || ratDetails.getBomb().getName().isBlank()) {
+                throw new RuntimeException("Nome da bomba é obrigatório se usar bomba.");
+            }
+            Bomb bomb = bombRepository.findByName(ratDetails.getBomb().getName())
+                    .orElseThrow(() -> new RuntimeException("Bomba '" + ratDetails.getBomb().getName() + "' não encontrada."));
+            rat.setBomb(bomb);
+            rat.setUseBomb(true);
+        } else {
+            rat.setBomb(null);
+            rat.setUseBomb(false);
+        }
+
+        return ratRepository.save(rat);
+    }
+
+
+    public Rat patch(Integer id, Rat ratDetails) {
+        Rat rat = ratRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Rat não encontrado com id " + id));
+
+        if (ratDetails.getName() != null && !ratDetails.getName().isBlank()) {
+            rat.setName(ratDetails.getName());
+        }
+
+        if (ratDetails.getSupplements() != null && !ratDetails.getSupplements().isEmpty()) {
+            List<Supplement> validatedSupplements = ratDetails.getSupplements().stream()
+                    .map(this::resolveSupplement)
+                    .collect(Collectors.toList());
+            rat.setSupplements(validatedSupplements);
+        }
+
+        if (ratDetails.isUseBomb()) {
+            if (ratDetails.getBomb() != null && ratDetails.getBomb().getName() != null && !ratDetails.getBomb().getName().isBlank()) {
+                Bomb bomb = bombRepository.findByName(ratDetails.getBomb().getName())
+                        .orElseThrow(() -> new RuntimeException("Bomba '" + ratDetails.getBomb().getName() + "' não encontrada."));
+                rat.setBomb(bomb);
+                rat.setUseBomb(true);
+            }
+        } else if (ratDetails.getBomb() == null) {
+            rat.setBomb(null);
+            rat.setUseBomb(false);
+        }
+
+        return ratRepository.save(rat);
+    }
+
+        public void deleteById(Integer id){
         ratRepository.deleteById(id);
     }
     public void deleteAll(){

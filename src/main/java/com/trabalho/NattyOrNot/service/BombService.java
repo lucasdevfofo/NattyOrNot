@@ -27,6 +27,37 @@ public class BombService {
         return bombRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Bomb não encontrada com id " + id));
     }
+    public Bomb update(Integer id, Bomb bombDetails) {
+        Bomb bomb = bombRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Bomb não encontrada com id " + id));
+
+        bomb.setName(bombDetails.getName());
+        bomb.setType(bombDetails.getType());
+        bomb.setPrice(bombDetails.getPrice());
+        bomb.setDescription(bombDetails.getDescription());
+
+        return bombRepository.save(bomb);
+    }
+
+    public Bomb patch(Integer id, Bomb bombDetails) {
+        Bomb bomb = bombRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Bomb não encontrada com id " + id));
+
+        if (bombDetails.getName() != null && !bombDetails.getName().isBlank()) {
+            bomb.setName(bombDetails.getName());
+        }
+        if (bombDetails.getType() != null && !bombDetails.getType().isBlank()) {
+            bomb.setType(bombDetails.getType());
+        }
+        if (bombDetails.getPrice() != null) {
+            bomb.setPrice(bombDetails.getPrice());
+        }
+        if (bombDetails.getDescription() != null && !bombDetails.getDescription().isBlank()) {
+            bomb.setDescription(bombDetails.getDescription());
+        }
+
+        return bombRepository.save(bomb);
+    }
     public void deleteById(Integer id){
         bombRepository.deleteById(id);
     }
