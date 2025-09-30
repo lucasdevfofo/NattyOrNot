@@ -29,4 +29,13 @@ public class SupplementController {
         return supplementService.findById(id);
     }
 
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable Integer id){
+        supplementService.deleteById(id);
+    }
+    @DeleteMapping
+    public void deleteAll(){
+        supplementService.deleteAll();
+    }
+
 }

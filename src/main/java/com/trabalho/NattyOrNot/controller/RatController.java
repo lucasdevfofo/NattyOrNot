@@ -33,5 +33,12 @@ public class RatController {
     public Rat update(@PathVariable Integer id, @RequestBody Rat ratDetails) {
         return ratService.update(id, ratDetails);
     }
-
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable Integer id){
+        ratService.deleteById(id);
+    }
+    @DeleteMapping
+    public void deleteAll(){
+        ratService.deleteAll();
+    }
 }

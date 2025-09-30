@@ -39,5 +39,13 @@ public class BombController {
     public Bomb patch(@PathVariable Integer id, @RequestBody Bomb bombDetails) {
         return bombService.patch(id, bombDetails);
     }
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable Integer id){
+        bombService.deleteById(id);
+    }
+    @DeleteMapping
+    public void deleteAll(){
+        bombService.deleteAll();
+    }
 
 }
