@@ -4,6 +4,8 @@ package com.trabalho.NattyOrNot.controller;
 import com.trabalho.NattyOrNot.model.Bomb;
 import com.trabalho.NattyOrNot.service.BombService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +18,11 @@ public class BombController {
 
 
     @PostMapping("/criar")
-    public Bomb create(@RequestBody Bomb bomb){
-        return bombService.create(bomb);
+    public ResponseEntity<Bomb> create(@RequestBody Bomb bomb) {
+        Bomb bombSaved = bombService.create(bomb);
+        return ResponseEntity.status(HttpStatus.CREATED).body(bombSaved);
     }
+
 
     @GetMapping
     public List<Bomb> getAll() {

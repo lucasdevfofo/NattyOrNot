@@ -36,11 +36,10 @@ public class RatService {
         rat.setSupplements(validatedSupplements);
 
         if (rat.isUseBomb()) {
-            if (rat.getBomb() == null || rat.getBomb().getName() == null || rat.getBomb().getName().isBlank()) {
-                throw new RuntimeException("Nome da bomba é obrigatório se usar bomba.");
+            if (rat.getBomb() == null) {
+                throw new RuntimeException("Bomba é obrigatória se usar bomba.");
             }
-            Bomb bomb = bombRepository.findByName(rat.getBomb().getName())
-                    .orElseThrow(() -> new RuntimeException("Bomba '" + rat.getBomb().getName() + "' não encontrada."));
+            Bomb bomb = resolveBomb(rat.getBomb());
             rat.setBomb(bomb);
         } else {
             rat.setBomb(null);
@@ -50,11 +49,25 @@ public class RatService {
     }
 
     private Supplement resolveSupplement(Supplement supplement) {
-        if (supplement.getName() == null || supplement.getName().isBlank()) {
-            throw new RuntimeException("Nome do suplemento é obrigatório.");
+        if (supplement.getId() != null) {
+            return supplementRepository.findById(supplement.getId())
+                    .orElseThrow(() -> new RuntimeException("Suplemento com id '" + supplement.getId() + "' não encontrado."));
+        } else if (supplement.getName() != null && !supplement.getName().isBlank()) {
+            return supplementRepository.findByName(supplement.getName())
+                    .orElseThrow(() -> new RuntimeException("Suplemento '" + supplement.getName() + "' não encontrado."));
         }
-        return supplementRepository.findByName(supplement.getName())
-                .orElseThrow(() -> new RuntimeException("Suplemento '" + supplement.getName() + "' não encontrado."));
+        throw new RuntimeException("É necessário fornecer id ou nome do suplemento.");
+    }
+
+    private Bomb resolveBomb(Bomb bombRequest) {
+        if (bombRequest.getId() != null) {
+            return bombRepository.findById(bombRequest.getId())
+                    .orElseThrow(() -> new RuntimeException("Bomba com id '" + bombRequest.getId() + "' não encontrada."));
+        } else if (bombRequest.getName() != null && !bombRequest.getName().isBlank()) {
+            return bombRepository.findByName(bombRequest.getName())
+                    .orElseThrow(() -> new RuntimeException("Bomba '" + bombRequest.getName() + "' não encontrada."));
+        }
+        throw new RuntimeException("É necessário fornecer id ou nome da bomba.");
     }
 
     public List<Rat> findAll() {
@@ -75,17 +88,18 @@ public class RatService {
         }
         rat.setName(ratDetails.getName());
 
-        List<Supplement> validatedSupplements = ratDetails.getSupplements().stream()
-                .map(this::resolveSupplement)
-                .collect(Collectors.toList());
-        rat.setSupplements(validatedSupplements);
+        if (ratDetails.getSupplements() != null && !ratDetails.getSupplements().isEmpty()) {
+            List<Supplement> validatedSupplements = ratDetails.getSupplements().stream()
+                    .map(this::resolveSupplement)
+                    .collect(Collectors.toList());
+            rat.setSupplements(validatedSupplements);
+        }
 
         if (ratDetails.isUseBomb()) {
-            if (ratDetails.getBomb() == null || ratDetails.getBomb().getName() == null || ratDetails.getBomb().getName().isBlank()) {
-                throw new RuntimeException("Nome da bomba é obrigatório se usar bomba.");
+            if (ratDetails.getBomb() == null) {
+                throw new RuntimeException("Bomba é obrigatória se usar bomba.");
             }
-            Bomb bomb = bombRepository.findByName(ratDetails.getBomb().getName())
-                    .orElseThrow(() -> new RuntimeException("Bomba '" + ratDetails.getBomb().getName() + "' não encontrada."));
+            Bomb bomb = resolveBomb(ratDetails.getBomb());
             rat.setBomb(bomb);
             rat.setUseBomb(true);
         } else {
@@ -95,7 +109,6 @@ public class RatService {
 
         return ratRepository.save(rat);
     }
-
 
     public Rat patch(Integer id, Rat ratDetails) {
         Rat rat = ratRepository.findById(id)
@@ -113,12 +126,12 @@ public class RatService {
         }
 
         if (ratDetails.isUseBomb()) {
-            if (ratDetails.getBomb() != null && ratDetails.getBomb().getName() != null && !ratDetails.getBomb().getName().isBlank()) {
-                Bomb bomb = bombRepository.findByName(ratDetails.getBomb().getName())
-                        .orElseThrow(() -> new RuntimeException("Bomba '" + ratDetails.getBomb().getName() + "' não encontrada."));
-                rat.setBomb(bomb);
-                rat.setUseBomb(true);
+            if (ratDetails.getBomb() == null) {
+                throw new RuntimeException("Bomba é obrigatória se usar bomba.");
             }
+            Bomb bomb = resolveBomb(ratDetails.getBomb());
+            rat.setBomb(bomb);
+            rat.setUseBomb(true);
         } else if (ratDetails.getBomb() == null) {
             rat.setBomb(null);
             rat.setUseBomb(false);
@@ -127,11 +140,12 @@ public class RatService {
         return ratRepository.save(rat);
     }
 
-        public void deleteById(Integer id){
+    public void deleteById(Integer id) {
         ratRepository.deleteById(id);
     }
-    public void deleteAll(){
+
+    public void deleteAll() {
         ratRepository.deleteAll();
     }
-
 }
+

@@ -1,8 +1,11 @@
 package com.trabalho.NattyOrNot.controller;
 
+import com.trabalho.NattyOrNot.model.Bomb;
 import com.trabalho.NattyOrNot.model.Rat;
 import com.trabalho.NattyOrNot.service.RatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +18,9 @@ public class RatController {
     public RatService ratService;
 
     @PostMapping("/criar")
-    public Rat create(@RequestBody Rat rat){
-        return ratService.create(rat);
+    public ResponseEntity<Rat> create(@RequestBody Rat rat) {
+        Rat ratSaved = ratService.create(rat);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ratSaved);
     }
 
     @GetMapping
