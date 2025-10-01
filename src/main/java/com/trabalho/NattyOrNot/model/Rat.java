@@ -20,6 +20,7 @@ public class Rat {
     private String name;
 
     private boolean useBomb;
+    private boolean useSupplement;
 
     @ManyToMany
     @JoinTable(

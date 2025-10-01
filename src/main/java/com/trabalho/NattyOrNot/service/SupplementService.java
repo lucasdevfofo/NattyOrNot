@@ -1,5 +1,6 @@
 package com.trabalho.NattyOrNot.service;
 
+import com.trabalho.NattyOrNot.exception.BadRequestException;
 import com.trabalho.NattyOrNot.exception.NotFoundException;
 import com.trabalho.NattyOrNot.model.Supplement;
 import com.trabalho.NattyOrNot.repository.SupplementRepository;
@@ -32,7 +33,7 @@ public class SupplementService {
                 .orElseThrow(() -> new NotFoundException("Suplemento com o id "+ id + " não encontrado"));
 
         if (supplementDetails.getName() == null || supplementDetails.getName().isBlank()) {
-            throw new RuntimeException("Nome do suplemento é obrigatório.");
+            throw new BadRequestException("Nome do suplemento é obrigatório.");
         }
         supplement.setName(supplementDetails.getName());
 

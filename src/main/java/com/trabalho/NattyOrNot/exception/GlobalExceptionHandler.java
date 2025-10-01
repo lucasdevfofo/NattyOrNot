@@ -18,4 +18,11 @@ public class GlobalExceptionHandler {
         body.put("Erro", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Map<String, String>> handleBadRequest(BadRequestException ex) {
+        Map<String, String> body = new HashMap<>();
+        body.put("Erro", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
 }
