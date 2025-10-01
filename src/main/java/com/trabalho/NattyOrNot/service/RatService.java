@@ -1,5 +1,6 @@
 package com.trabalho.NattyOrNot.service;
 
+import com.trabalho.NattyOrNot.exception.NotFoundException;
 import com.trabalho.NattyOrNot.model.Bomb;
 import com.trabalho.NattyOrNot.model.Rat;
 import com.trabalho.NattyOrNot.model.Supplement;
@@ -76,12 +77,13 @@ public class RatService {
 
     public Rat findById(Integer id) {
         return ratRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Rat não encontrado com id " + id));
+                .orElseThrow(() -> new NotFoundException("Ratinho(a) de academia com o id " + id + " não encontrado(a)"));
+
     }
 
     public Rat update(Integer id, Rat ratDetails) {
         Rat rat = ratRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Rat não encontrado com id " + id));
+                .orElseThrow(() -> new NotFoundException("Ratinho(a) de academia com o id " + id + " não encontrado(a)"));
 
         if (ratDetails.getName() == null || ratDetails.getName().isBlank()) {
             throw new RuntimeException("Nome do rat é obrigatório.");
@@ -112,7 +114,7 @@ public class RatService {
 
     public Rat patch(Integer id, Rat ratDetails) {
         Rat rat = ratRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Rat não encontrado com id " + id));
+                .orElseThrow(() -> new NotFoundException("Ratinho(a) de academia com o id " + id + " não encontrado(a)"));
 
         if (ratDetails.getName() != null && !ratDetails.getName().isBlank()) {
             rat.setName(ratDetails.getName());

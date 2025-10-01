@@ -1,5 +1,6 @@
 package com.trabalho.NattyOrNot.service;
 
+import com.trabalho.NattyOrNot.exception.NotFoundException;
 import com.trabalho.NattyOrNot.model.Supplement;
 import com.trabalho.NattyOrNot.repository.SupplementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,11 @@ public class SupplementService {
 
     public Supplement findById(Integer id) {
         return supplementRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Supplement não encontrado com id " + id));
+                .orElseThrow(() -> new NotFoundException("Suplemento com o id "+ id + " não encontrado"));
     }
     public Supplement update(Integer id, Supplement supplementDetails) {
         Supplement supplement = supplementRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Supplement não encontrado com id " + id));
+                .orElseThrow(() -> new NotFoundException("Suplemento com o id "+ id + " não encontrado"));
 
         if (supplementDetails.getName() == null || supplementDetails.getName().isBlank()) {
             throw new RuntimeException("Nome do suplemento é obrigatório.");
@@ -40,7 +41,7 @@ public class SupplementService {
 
     public Supplement patch(Integer id, Supplement supplementDetails) {
         Supplement supplement = supplementRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Supplement não encontrado com id " + id));
+                .orElseThrow(() -> new NotFoundException("Suplemento com o id "+ id + " não encontrado"));
 
         if (supplementDetails.getName() != null && !supplementDetails.getName().isBlank()) {
             supplement.setName(supplementDetails.getName());

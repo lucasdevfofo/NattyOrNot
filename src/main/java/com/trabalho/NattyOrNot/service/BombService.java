@@ -1,5 +1,6 @@
 package com.trabalho.NattyOrNot.service;
 
+import com.trabalho.NattyOrNot.exception.NotFoundException;
 import com.trabalho.NattyOrNot.model.Bomb;
 import com.trabalho.NattyOrNot.repository.BombRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,12 @@ public class BombService {
 
     public Bomb findById(Integer id) {
         return bombRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Bomb não encontrada com id " + id));
+                .orElseThrow(() -> new NotFoundException("Bomba com o id " + id + " não encontrada"));
+
     }
     public Bomb update(Integer id, Bomb bombDetails) {
         Bomb bomb = bombRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Bomb não encontrada com id " + id));
+                .orElseThrow(() -> new NotFoundException("Bomba com o id " + id + " não encontrada"));
 
         bomb.setName(bombDetails.getName());
         bomb.setType(bombDetails.getType());
@@ -41,7 +43,7 @@ public class BombService {
 
     public Bomb patch(Integer id, Bomb bombDetails) {
         Bomb bomb = bombRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Bomb não encontrada com id " + id));
+                .orElseThrow(() -> new NotFoundException("Bomba com o id " + id + " não encontrada"));
 
         if (bombDetails.getName() != null && !bombDetails.getName().isBlank()) {
             bomb.setName(bombDetails.getName());
