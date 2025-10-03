@@ -32,6 +32,20 @@ public class SupplementController {
         return supplementService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Supplement> update(@PathVariable Integer id,
+                                             @RequestBody Supplement supplementDetails) {
+        Supplement updated = supplementService.update(id, supplementDetails);
+        return ResponseEntity.ok(updated);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Supplement> patch(@PathVariable Integer id,
+                                            @RequestBody Supplement supplementDetails) {
+        Supplement updated = supplementService.patch(id, supplementDetails);
+        return ResponseEntity.ok(updated);
+    }
+
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable Integer id){
         supplementService.deleteById(id);
