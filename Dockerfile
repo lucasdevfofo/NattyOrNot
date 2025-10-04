@@ -1,14 +1,25 @@
-# 1. Imagem base com Java 21
-FROM eclipse-temurin:21-jdk-alpine
+# Imagem com Maven + JDK 21
+FROM maven:3.9.2-eclipse-temurin-21 AS build
 
-# 2. Diretório dentro do container
+# Diretório de trabalho
 WORKDIR /app
 
-# 3. Copiar o JAR gerado para o container
-COPY target/NattyOrNot-0.0.1-SNAPSHOT.jar app.jar
+# Copia arquivos do projeto
+COPY pom.xml .
+COPY src ./src
 
-# 4. Expõe a porta que o Spring Boot vai usar
+# Build do JAR
+RUN mvn clean package -DskipTests
+
+# Segunda etapa: imagem mais leve para rodar
+FROM eclipse-temurin:21-jdk-alpine
+WORKDIR /app
+
+# Copiar o JAR gerado
+COPY --from=build /app/target/NattyOrNot-0.0.1-SNAPSHOT.jar app.jar
+
+# Porta
 EXPOSE 8080
 
-# 5. Comando para rodar o JAR
+# Rodar o JAR
 ENTRYPOINT ["java","-jar","app.jar"]
