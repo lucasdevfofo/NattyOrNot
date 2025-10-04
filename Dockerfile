@@ -1,5 +1,6 @@
 # Etapa de build
-FROM maven:3.9.11-oraclelinux8 AS build
+# CORREÇÃO: Usando uma tag válida que inclui Maven e JDK 21
+FROM maven:3.9.7-eclipse-temurin-21 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
