@@ -19,7 +19,7 @@ ENV JAVA_HOME=/opt/jdk-21
 ENV PATH=$JAVA_HOME/bin:$PATH
 
 # Copiar JAR do build
-COPY --from=build /app/target/NattyOrNot-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /target/NattyOrNot-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
