@@ -204,7 +204,7 @@ spring.jpa.show-sql=true
 
 ---
 
-## 🗂️ Estrutura do Projeto (exemplo)
+## 🗂️ Estrutura do Projeto
 
 ```
 src/main/java/com/NattyOrNot

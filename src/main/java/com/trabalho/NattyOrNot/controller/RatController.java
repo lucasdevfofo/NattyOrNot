@@ -37,6 +37,13 @@ public class RatController {
     public Rat update(@PathVariable Integer id, @RequestBody Rat ratDetails) {
         return ratService.update(id, ratDetails);
     }
+
+    @PatchMapping("{id}")
+    public Rat patch(@PathVariable Integer id, @RequestBody Rat ratDetails){
+        return ratService.patch(id, ratDetails);
+
+    }
+
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable Integer id){
         ratService.deleteById(id);
