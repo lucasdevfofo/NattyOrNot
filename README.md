@@ -73,9 +73,10 @@ docker compose up -d
 3. Configure um perfil `postgres` (ex.: `src/main/resources/application-postgres.properties`):
 
 ```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/db-nattyornot
-spring.datasource.username=postgres
-spring.datasource.password=postgres
+spring.datasource.url=jdbc:postgresql://dpg-d3gi8o8gjchc739q0scg-a:5432/nattyornotdb
+spring.datasource.username=nattyornotdb_user
+spring.datasource.password=kgn9IqczneZ11LW7HBNtkRnkvrcNAzOK
+spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 ```
