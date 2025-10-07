@@ -207,7 +207,7 @@ spring.jpa.show-sql=true
 ## 🗂️ Estrutura do Projeto (exemplo)
 
 ```
-src/main/java/com/trabalho/NattyOrNot
+src/main/java/com/NattyOrNot
  ├─ controler  
  ├─ exception            
  ├─ model     
@@ -224,6 +224,22 @@ src/main/java/com/trabalho/NattyOrNot
 * **PostgreSQL não conecta** → verifique containers (`docker compose ps`), porta `5432` e credenciais.
 * **Porta 8080 ocupada** → troque `server.port` ou finalize o processo ocupando a porta.
 * **`ddl-auto=update`** é só para dev; em produção, use migrações (ex.: Flyway).
+
+##   API está hospedada em:
+➡️ https://nattyornot.onrender.com
+
+## ☁️ Deploy e Banco
+
+**Banco de dados: PostgreSQL**
+
+- **Console H2:** `https://nattyornot.onrender.com/h2-console`
+- **Driver Class:** `org.postgresql.Driver`
+- **JDBC URL:** `jdbc:postgresql://dpg-d3gi8o8gjchc739q0scg-a:5432/nattyornotdb`
+- **Usuário:** `nattyornotdb_user`
+- **Senha:** `kgn9IqczneZ11LW7HBNtkRnkvrcNAzOK`
+- **Status:** ✅ Test successful (conexão verificada)
+
+
 
 
 
