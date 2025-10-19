@@ -2,21 +2,25 @@ package com.trabalho.NattyOrNot.service;
 
 import com.trabalho.NattyOrNot.exception.NotFoundException;
 import com.trabalho.NattyOrNot.model.Bomb;
+import com.trabalho.NattyOrNot.model.Rat;
 import com.trabalho.NattyOrNot.repository.BombRepository;
+import com.trabalho.NattyOrNot.repository.RatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class BombService {
 
+    @Autowired
+    private BombRepository bombRepository;
 
     @Autowired
-    public BombRepository bombRepository;
+    private RatRepository ratRepository;
 
-    public Bomb create(@RequestBody Bomb bomb){
+    public Bomb create(Bomb bomb) {
         return bombRepository.save(bomb);
     }
 
@@ -27,8 +31,8 @@ public class BombService {
     public Bomb findById(Integer id) {
         return bombRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Bomba com o id " + id + " não encontrada"));
-
     }
+
     public Bomb update(Integer id, Bomb bombDetails) {
         Bomb bomb = bombRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Bomba com o id " + id + " não encontrada"));
@@ -60,10 +64,31 @@ public class BombService {
 
         return bombRepository.save(bomb);
     }
-    public void deleteById(Integer id){
-        bombRepository.deleteById(id);
+
+    @Transactional
+    public void deleteById(Integer id) {
+        Bomb bomb = bombRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Bomba com o id " + id + " não encontrada"));
+
+        // Solta a FK em todos os Rats que apontam para essa Bomb
+        List<Rat> rats = ratRepository.findByBomb_Id(id);
+        for (Rat r : rats) {
+            r.setBomb(null);
+        }
+        ratRepository.saveAll(rats);
+
+        bombRepository.delete(bomb);
     }
-    public void deleteAll(){
+
+    @Transactional
+    public void deleteAll() {
+        // Zera a referência de bomb em todos os Rats antes de remover as Bombs
+        List<Rat> rats = ratRepository.findAll();
+        for (Rat r : rats) {
+            r.setBomb(null);
+        }
+        ratRepository.saveAll(rats);
+
         bombRepository.deleteAll();
     }
 }
