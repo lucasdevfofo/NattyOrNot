@@ -73,9 +73,10 @@ docker compose up -d
 3. Configure um perfil `postgres` (ex.: `src/main/resources/application-postgres.properties`):
 
 ```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/db-nattyornot
-spring.datasource.username=postgres
-spring.datasource.password=postgres
+spring.datasource.url=jdbc:postgresql://dpg-d3gi8o8gjchc739q0scg-a:5432/nattyornotdb
+spring.datasource.username=nattyornotdb_user
+spring.datasource.password=kgn9IqczneZ11LW7HBNtkRnkvrcNAzOK
+spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 ```
@@ -207,7 +208,7 @@ spring.jpa.show-sql=true
 ## 🗂️ Estrutura do Projeto
 
 ```
-src/main/java/com/trabalho/NattyOrNot
+src/main/java/com/NattyOrNot
  ├─ controler  
  ├─ exception            
  ├─ model     
@@ -224,6 +225,22 @@ src/main/java/com/trabalho/NattyOrNot
 * **PostgreSQL não conecta** → verifique containers (`docker compose ps`), porta `5432` e credenciais.
 * **Porta 8080 ocupada** → troque `server.port` ou finalize o processo ocupando a porta.
 * **`ddl-auto=update`** é só para dev; em produção, use migrações (ex.: Flyway).
+
+##   API está hospedada em:
+➡️ https://nattyornot.onrender.com
+
+## ☁️ Deploy e Banco
+
+**Banco de dados: PostgreSQL**
+
+- **Console H2:** `https://nattyornot.onrender.com/h2-console`
+- **Driver Class:** `org.postgresql.Driver`
+- **JDBC URL:** `jdbc:postgresql://dpg-d3gi8o8gjchc739q0scg-a:5432/nattyornotdb`
+- **Usuário:** `nattyornotdb_user`
+- **Senha:** `kgn9IqczneZ11LW7HBNtkRnkvrcNAzOK`
+- **Status:** ✅ Test successful (conexão verificada)
+
+
 
 
 
