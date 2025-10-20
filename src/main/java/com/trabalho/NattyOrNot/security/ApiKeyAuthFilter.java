@@ -1,5 +1,6 @@
 package com.trabalho.NattyOrNot.security;
 
+import com.trabalho.NattyOrNot.service.ApiKeyService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

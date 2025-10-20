@@ -1,5 +1,8 @@
-package com.trabalho.NattyOrNot.security;
+package com.trabalho.NattyOrNot.controller;
 
+import com.trabalho.NattyOrNot.model.ApiKey;
+import com.trabalho.NattyOrNot.repository.ApiKeyRepository;
+import com.trabalho.NattyOrNot.service.ApiKeyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

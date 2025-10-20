@@ -1,5 +1,6 @@
-package com.trabalho.NattyOrNot.security;
+package com.trabalho.NattyOrNot.repository;
 
+import com.trabalho.NattyOrNot.model.ApiKey;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

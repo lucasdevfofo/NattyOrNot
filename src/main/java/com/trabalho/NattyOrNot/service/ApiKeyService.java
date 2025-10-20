@@ -1,5 +1,7 @@
-package com.trabalho.NattyOrNot.security;
+package com.trabalho.NattyOrNot.service;
 
+import com.trabalho.NattyOrNot.repository.ApiKeyRepository;
+import com.trabalho.NattyOrNot.model.ApiKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
