@@ -1,11 +1,12 @@
 package com.trabalho.NattyOrNot.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,18 +22,6 @@ public class Rat {
 
     private boolean useBomb;
     private boolean useSupplement;
-
-    @ManyToMany
-    @JoinTable(
-            name = "rat_supplements",
-            joinColumns = @JoinColumn(name = "rat_id"),
-            inverseJoinColumns = @JoinColumn(name = "supplement_id")
-    )
-    private List<Supplement> supplements;
-
-    @ManyToOne
-    @JoinColumn(name = "bomb_id")
-    private Bomb bomb;
 
     private String apLocation;
 }

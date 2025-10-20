@@ -1,6 +1,5 @@
 package com.trabalho.NattyOrNot.controller;
 
-
 import com.trabalho.NattyOrNot.model.Bomb;
 import com.trabalho.NattyOrNot.service.BombService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,45 +10,54 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bomb")
+@RequestMapping("/bombs")
 public class BombController {
+
     @Autowired
     public BombService bombService;
 
-
-    @PostMapping("/criar")
+    // POST /bombs -> Cria um novo recurso
+    @PostMapping
     public ResponseEntity<Bomb> create(@RequestBody Bomb bomb) {
         Bomb bombSaved = bombService.create(bomb);
         return ResponseEntity.status(HttpStatus.CREATED).body(bombSaved);
     }
 
-
+    // GET /bombs -> Retorna a lista de todos os recursos
     @GetMapping
-    public List<Bomb> getAll() {
-        return bombService.findAll();
+    public ResponseEntity<List<Bomb>> getAll() {
+        return ResponseEntity.ok(bombService.findAll());
     }
 
+    // GET /bombs/{id} -> Retorna um recurso específico
     @GetMapping("/{id}")
-    public Bomb getById(@PathVariable Integer id) {
-        return bombService.findById(id);
+    public ResponseEntity<Bomb> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(bombService.findById(id));
     }
 
+    // PUT /bombs/{id} -> Substitui completamente um recurso
     @PutMapping("/{id}")
-    public Bomb update(@PathVariable Integer id, @RequestBody Bomb bombDetails) {
-        return bombService.update(id, bombDetails);
+    public ResponseEntity<Bomb> update(@PathVariable Integer id, @RequestBody Bomb bombDetails) {
+        return ResponseEntity.ok(bombService.update(id, bombDetails));
     }
 
+    // PATCH /bombs/{id} -> Atualiza parcialmente um recurso
     @PatchMapping("/{id}")
-    public Bomb patch(@PathVariable Integer id, @RequestBody Bomb bombDetails) {
-        return bombService.patch(id, bombDetails);
-    }
-    @DeleteMapping("{id}")
-    public void deleteById(@PathVariable Integer id){
-        bombService.deleteById(id);
-    }
-    @DeleteMapping
-    public void deleteAll(){
-        bombService.deleteAll();
+    public ResponseEntity<Bomb> patch(@PathVariable Integer id, @RequestBody Bomb bombDetails) {
+        return ResponseEntity.ok(bombService.patch(id, bombDetails));
     }
 
+    // DELETE /bombs/{id} -> Deleta um recurso específico
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
+        bombService.deleteById(id);
+        return ResponseEntity.noContent().build(); // Retorna 204 No Content
+    }
+
+    // DELETE /bombs -> Deleta todos os recursos
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAll() {
+        bombService.deleteAll();
+        return ResponseEntity.noContent().build(); // Retorna 204 No Content
+    }
 }

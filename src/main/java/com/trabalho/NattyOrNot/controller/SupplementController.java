@@ -1,6 +1,5 @@
 package com.trabalho.NattyOrNot.controller;
 
-import com.trabalho.NattyOrNot.model.Bomb;
 import com.trabalho.NattyOrNot.model.Supplement;
 import com.trabalho.NattyOrNot.service.SupplementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,48 +10,47 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/supplement")
+@RequestMapping("/supplements")
 public class SupplementController {
 
     @Autowired
     public SupplementService supplementService;
 
-    @PostMapping("/criar")
+    @PostMapping
     public ResponseEntity<Supplement> create(@RequestBody Supplement supplement) {
         Supplement supplementSaved = supplementService.create(supplement);
         return ResponseEntity.status(HttpStatus.CREATED).body(supplementSaved);
     }
+
     @GetMapping
-    public List<Supplement> getAll() {
-        return supplementService.findAll();
+    public ResponseEntity<List<Supplement>> getAll() {
+        return ResponseEntity.ok(supplementService.findAll());
     }
 
     @GetMapping("/{id}")
-    public Supplement getById(@PathVariable Integer id) {
-        return supplementService.findById(id);
+    public ResponseEntity<Supplement> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(supplementService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Supplement> update(@PathVariable Integer id,
-                                             @RequestBody Supplement supplementDetails) {
-        Supplement updated = supplementService.update(id, supplementDetails);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<Supplement> update(@PathVariable Integer id, @RequestBody Supplement supplementDetails) {
+        return ResponseEntity.ok(supplementService.update(id, supplementDetails));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Supplement> patch(@PathVariable Integer id,
-                                            @RequestBody Supplement supplementDetails) {
-        Supplement updated = supplementService.patch(id, supplementDetails);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<Supplement> patch(@PathVariable Integer id, @RequestBody Supplement supplementDetails) {
+        return ResponseEntity.ok(supplementService.patch(id, supplementDetails));
     }
 
-    @DeleteMapping("{id}")
-    public void deleteById(@PathVariable Integer id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
         supplementService.deleteById(id);
-    }
-    @DeleteMapping
-    public void deleteAll(){
-        supplementService.deleteAll();
+        return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAll() {
+        supplementService.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
 }

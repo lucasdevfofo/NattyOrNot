@@ -1,6 +1,5 @@
 package com.trabalho.NattyOrNot.controller;
 
-import com.trabalho.NattyOrNot.model.Bomb;
 import com.trabalho.NattyOrNot.model.Rat;
 import com.trabalho.NattyOrNot.service.RatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,45 +10,47 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rat")
+@RequestMapping("/rats")
 public class RatController {
 
     @Autowired
     public RatService ratService;
 
-    @PostMapping("/criar")
+    @PostMapping
     public ResponseEntity<Rat> create(@RequestBody Rat rat) {
         Rat ratSaved = ratService.create(rat);
         return ResponseEntity.status(HttpStatus.CREATED).body(ratSaved);
     }
 
     @GetMapping
-    public List<Rat> getAll() {
-        return ratService.findAll();
+    public ResponseEntity<List<Rat>> getAll() {
+        return ResponseEntity.ok(ratService.findAll());
     }
 
     @GetMapping("/{id}")
-    public Rat getById(@PathVariable Integer id) {
-        return ratService.findById(id);
+    public ResponseEntity<Rat> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(ratService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public Rat update(@PathVariable Integer id, @RequestBody Rat ratDetails) {
-        return ratService.update(id, ratDetails);
+    public ResponseEntity<Rat> update(@PathVariable Integer id, @RequestBody Rat ratDetails) {
+        return ResponseEntity.ok(ratService.update(id, ratDetails));
     }
 
-    @PatchMapping("{id}")
-    public Rat patch(@PathVariable Integer id, @RequestBody Rat ratDetails){
-        return ratService.patch(id, ratDetails);
-
+    @PatchMapping("/{id}")
+    public ResponseEntity<Rat> patch(@PathVariable Integer id, @RequestBody Rat ratDetails){
+        return ResponseEntity.ok(ratService.patch(id, ratDetails));
     }
 
-    @DeleteMapping("{id}")
-    public void deleteById(@PathVariable Integer id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Integer id){
         ratService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
+
     @DeleteMapping
-    public void deleteAll(){
+    public ResponseEntity<Void> deleteAll(){
         ratService.deleteAll();
+        return ResponseEntity.noContent().build();
     }
 }
