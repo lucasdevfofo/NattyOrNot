@@ -122,14 +122,14 @@ spring.jpa.show-sql=true
 ### 🔧 Recurso: Bomb (`/bomb`)
 
 | Método | Rota          | Descrição                             |
-| ------ | ------------- | ------------------------------------- |
-| GET    | `/bomb`       | Lista todas as bombas.                |
-| GET    | `/bomb/{id}`  | Retorna uma bomba pelo ID.            |
-| POST   | `/bomb/criar` | Cria uma nova bomba.                  |
-| PUT    | `/bomb/{id}`  | Atualiza todos os dados de uma bomba. |
-| PATCH  | `/bomb/{id}`  | Atualiza parcialmente uma bomba.      |
-| DELETE | `/bomb/{id}`  | Remove uma bomba específica.          |
-| DELETE | `/bomb`       | Remove **todas** as bombas.           |
+| ------ |---------------| ------------------------------------- |
+| GET    | `/bombs`      | Lista todas as bombas.                |
+| GET    | `/bombs/{id}` | Retorna uma bomba pelo ID.            |
+| POST   | `/bombs`      | Cria uma nova bomba.                  |
+| PUT    | `/bombs/{id}` | Atualiza todos os dados de uma bomba. |
+| PATCH  | `/bombs/{id}` | Atualiza parcialmente uma bomba.      |
+| DELETE | `/bombs/{id}` | Remove uma bomba específica.          |
+| DELETE | `/bombs`      | Remove **todas** as bombas.           |
 
 **Exemplo de body (POST/PUT):**
 
@@ -152,13 +152,13 @@ spring.jpa.show-sql=true
 
 | Método | Rota                | Descrição                                         |
 |--------|---------------------|---------------------------------------------------|
-| GET    | `/supplement`       | Lista todos os suplementos.                       |
-| GET    | `/supplement/{id}`  | Retorna um suplemento pelo ID.                    |
-| POST   | `/supplement/criar` | Cria um novo suplemento.   <br/>                  |
-| PUT    | `/supplement/{id`   | Atualiza todos os dados de um suplemento.   <br/> |
-| PATCH  | `/supplement/{id`   | Atualiza parcialmente um suplemento.    <br/>     |
-| DELETE | `/supplement/{id}`  | Remove um suplemento específico.                  |
-| DELETE | `/supplement`       | Remove **todos** os suplementos.                  |
+| GET    | `/supplements`      | Lista todos os suplementos.                       |
+| GET    | `/supplements/{id}` | Retorna um suplemento pelo ID.                    |
+| POST   | `/supplements`      | Cria um novo suplemento.   <br/>                  |
+| PUT    | `/supplements/{id`  | Atualiza todos os dados de um suplemento.   <br/> |
+| PATCH  | `/supplements/{id`  | Atualiza parcialmente um suplemento.    <br/>     |
+| DELETE | `/supplements/{id}` | Remove um suplemento específico.                  |
+| DELETE | `/supplements`      | Remove **todos** os suplementos.                  |
 
 **Exemplo de body (POST):**
 
@@ -179,14 +179,14 @@ spring.jpa.show-sql=true
 ### 🔧 Recurso: Rat (`/rat`)
 
 | Método | Rota         | Descrição                                 |
-|--------| ------------ |-------------------------------------------|
-| GET    | `/rat`       | Lista todos.                              |
-| GET    | `/rat/{id}`  | Retorna um Rat pelo ID.                   |
-| POST   | `/rat/criar` | Cria um novo Rat.                         |
-| PUT    | `/rat/{id}`  | Atualiza todos os dados de um Rat.        |
-| PATCH  | `/rat/{id}`  | Atualiza parcialmente os dados de um Rat. |
-| DELETE | `/rat/{id}`  | Remove um Rat específico.                 |
-| DELETE | `/rat`       | Remove **todos** os Rats.                 |
+|--------|--------------|-------------------------------------------|
+| GET    | `/rats`      | Lista todos.                              |
+| GET    | `/rats/{id}` | Retorna um Rat pelo ID.                   |
+| POST   | `/rats`      | Cria um novo Rat.                         |
+| PUT    | `/rats/{id}` | Atualiza todos os dados de um Rat.        |
+| PATCH  | `/rats/{id}` | Atualiza parcialmente os dados de um Rat. |
+| DELETE | `/rats/{id}` | Remove um Rat específico.                 |
+| DELETE | `/rats`      | Remove **todos** os Rats.                 |
 
 **Exemplo de body (POST/PUT):**
 
