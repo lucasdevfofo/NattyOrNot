@@ -229,6 +229,11 @@ src/main/java/com/NattyOrNot
 ##   API está hospedada em:
 ➡️ https://nattyornot.onrender.com
 
+##   API Key: 
+- **Key:** `X-API-Key`
+- **Value:** `iknvpNP2Rx53d7xQP/k42Ya+o7bpm/rUrDpXulpkY6M=`
+
+
 ## ☁️ Deploy e Banco
 
 **Banco de dados: PostgreSQL**
